@@ -21,7 +21,7 @@ module.exports = NodeHelper.create({
 
         let options = {
             url: self.url,
-            json: true,
+            format: "text",
             method: "GET"
         };
 
@@ -30,7 +30,15 @@ module.exports = NodeHelper.create({
                 return console.log(error);
             }
             let strObject = JSON.stringify(body, null, 4);
-            console.log(strObject);
+
+            if(typeof(body) === "string"){
+                try{
+                    body = JSON.parse(body);
+                }
+                catch(e){
+                    body = body
+                }
+            }
             self.returned_data = body;
 
             if (self.language !== "en") {
